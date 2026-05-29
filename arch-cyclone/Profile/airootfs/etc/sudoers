@@ -1,0 +1,7 @@
+# Sudoers configuration for Arch-Cyclone
+
+# User privilege escalation
+root ALL=(ALL:ALL) ALL
+
+# Allow sudo group members to run any command without password (standard for gaming PCs)
+%wheel ALL=(ALL:ALL) NOPASSWD: ALL

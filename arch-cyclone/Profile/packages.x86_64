@@ -1,0 +1,203 @@
+base
+base-devel
+linux-zen
+linux-zen-headers
+amd-ucode
+
+# ── GPU AMD ──────────────────────────────────────────────────────────────────
+mesa
+lib32-mesa
+vulkan-radeon
+lib32-vulkan-radeon
+amdvlk
+lib32-amdvlk
+opencl-mesa
+ocl-icd
+lib32-ocl-icd
+libglvnd
+lib32-libglvnd
+
+# ── Gaming ───────────────────────────────────────────────────────────────────
+steam
+gamemode
+lib32-gamemode
+mangohud
+lib32-mangohud
+wine
+wine-gecko
+wine-mono
+giflib
+lib32-giflib
+vkd3d
+lib32-vkd3d
+protonup-qt
+heroic-games-launcher-bin
+
+# ── Codecs multimedia ──────────────────────────────────────────────────────────
+ffmpeg
+aom
+libvpx
+libwebp
+x265
+x264
+libdvdread
+libdvdcss
+a52dec
+faad2
+faac
+lame
+xvidcore
+opus
+flac
+wavpack
+speex
+libvorbis
+libtheora
+
+# ── OpenCV + Python ───────────────────────────────────────────────────────────
+opencv
+python
+python-pip
+python-numpy
+
+# ── Node.js ──────────────────────────────────────────────────────────────────
+nodejs
+npm
+
+# ── KDE Plasma ───────────────────────────────────────────────────────────────
+plasma-meta
+kde-applications-meta
+sddm
+kscreen
+kwalletmanager
+powerdevil
+bluedevil
+drkonqi
+
+# ── Audio ────────────────────────────────────────────────────────────────────
+pipewire
+pipewire-alsa
+pipewire-jack
+wireplumber
+pavucontrol
+alsa-utils
+lib32-alsa-lib
+
+# ── Red / Network ─────────────────────────────────────────────────────────────
+networkmanager
+network-manager-applet
+openssh
+
+# ── System monitoring ───────────────────────────────────────────────────────────
+btop
+fastfetch
+neofetch
+htop
+glances
+lm_sensors
+i2c-tools
+liquidctl
+psensor
+
+# ── Dev tools ─────────────────────────────────────────────────────────────────
+git
+cmake
+clang
+gcc
+make
+autoconf
+automake
+binutils
+bison
+flex
+m4
+patch
+pkgconf
+texinfo
+which
+less
+
+# ── Fonts ─────────────────────────────────────────────────────────────────────
+ttf-font-awesome
+noto-fonts
+noto-fonts-extra
+ttf-dejavu
+ttf-liberation
+fontconfig
+freetype2
+
+# ── GTK / Qt ──────────────────────────────────────────────────────────────────
+gtk3
+gtk4
+qt5-base
+qt6-base
+qt5ct
+qt6ct
+kvantum
+adwaita-qt5
+adwaita-qt6
+breeze
+breeze-gtk
+
+# ── Xorg ─────────────────────────────────────────────────────────────────────
+xorg-server
+xorg-apps
+xorg-xinit
+
+# ── Theming ───────────────────────────────────────────────────────────────────
+nordic-theme
+tela-icon-theme
+papirus-icon-theme
+
+# ── Input ─────────────────────────────────────────────────────────────────────
+libinput
+xf86-input-libinput
+
+# ── GPU tools ────────────────────────────────────────────────────────────────
+radeontop
+
+# ── FS ───────────────────────────────────────────────────────────────────────
+ntfs-3g
+exfatprogs
+fuse2
+fuse3
+dosfstools
+e2fsprogs
+btrfs-progs
+xfsprogs
+parted
+gptfdisk
+
+# ── Locale ────────────────────────────────────────────────────────────────────
+glibc
+libxcrypt-compat
+lib32-libxcrypt-compat
+locales
+
+# ── Utils ─────────────────────────────────────────────────────────────────────
+xdg-user-dirs
+xdg-utils
+xclip
+curl
+wget
+rsync
+jq
+polkit
+systemd-swap
+earlyoom
+
+# ── OBS Studio — streaming y grabaciones ──────────────────────────────────────
+obs-studio
+vlc
+vlc-plugins
+
+# ── Brave — navegador ─────────────────────────────────────────────────────────
+brave
+
+# ── OpenClaw — agente de IA (auto-update) ────────────────────────────────────
+cronie
+openssh
+
+# ── Boot verification ─────────────────────────────────────────────────────────
+shasum
+openssl

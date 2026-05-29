@@ -1,0 +1,67 @@
+# ============================================================
+# Arch-Cyclone Environment — Gaming + Creator Optimizations
+# Hardware: AMD Ryzen 5 5500 + RX 580 8GB + 16GB RAM
+# Based on: Arch Linux + Omarchy gaming tweaks + OMAARCHY
+# ============================================================
+
+# ── AMD GPU ──────────────────────────────────────────────────────────────────
+AMD_VULKAN_ICD=radv
+RADV_PERFTEST=ubection_ordering
+RADV_ASYNC_PAGE_FLIP=1
+AMD_DEBUG=nongart
+MANGOHUD=1
+MANGOHUD_DLSYM=1
+DISABLE_LAYER_AMD_SWITCHABLE_GRAPHICS_1=1
+
+# ── Omarchy / Gaming Performance ─────────────────────────────────────────────
+# BORE scheduler (if patched kernel) — reduces game stutter
+SCHED_BORE=1
+BORE_BURST=48
+
+# Sync / Futex — reduces input lag in multiplayer
+FUTEX_SWITCH_DEBUG=0
+ENABLE_VSYNC=0
+
+# Gamescope / FSR
+AMD_VULKAN_ICD=radv
+RADV_ENABLE_FSR=1
+RADV_PERFTEST=async
+
+# GameMode auto-enable
+GAMEMODE=1
+LUX_SHADOWS=1
+
+# ── Memory / Swap ─────────────────────────────────────────────────────────────
+VM.swappiness=10
+VM.vfs_cache_pressure=50
+VM.dirty_ratio=15
+VM.dirty_background_ratio=3
+VM.overcommit_memory=1
+VM.zone_reclaim_mode=0
+
+# ── I/O Scheduler (SSD/HDD auto) ─────────────────────────────────────────────
+BLOCKSIZE=io_scheduler
+
+# ── Network (reduce latency for gaming) ───────────────────────────────────────
+net.core.rmem_max=26214400
+net.core.wmem_max=26214400
+net.ipv4.tcp_fastopen=3
+net.ipv4.tcp_slow_start_after_idle=0
+
+# ── DaVinci Resolve ────────────────────────────────────────────────────────────
+# Force dedicated GPU always (no switchable graphics issues)
+DRI_PRIME=1
+# OpenGL vendor
+LIBGL_DRI3_DISABLE=0
+# Resolve needs these
+QCOREALSA_PLUS=1
+# CUDA/Vulkan preference
+RADV_PERFTEST=gpl
+
+# ── PipeWire (low-latency audio) ─────────────────────────────────────────────
+PIPEWIRE_LATENCY=256/48000
+PIPEWIRE_RT_PRIORITY=88
+
+# ── Locale ────────────────────────────────────────────────────────────────────
+LANG=en_US.UTF-8
+LC_ALL=en_US.UTF-8
