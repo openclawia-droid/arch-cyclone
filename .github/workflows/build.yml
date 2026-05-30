@@ -21,7 +21,8 @@ jobs:
 
       - name: Install build dependencies
         run: |
-          pacman -S --noconfirm archiso
+          pacman -Sy && pacman -S --noconfirm archiso
+
 
 
 
