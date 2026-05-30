@@ -13,26 +13,34 @@ permissions:
 jobs:
   build:
     runs-on: ubuntu-latest
-    container: archlinux/archlinux:latest
 
     steps:
       - name: Checkout profile
         uses: actions/checkout@v4
 
-      - name: Install build dependencies
-        run: |
-          pacman -Sy --noconfirm
-          pacman -S --noconfirm archiso
-
       - name: Build ISO
         run: |
-          mkdir -p out
-          mkarchiso -v -w out/work -o out Profile/
+          docker run --rm \
+            --security-opt seccomp=unconfined \
+            --cap-add=SYS_ADMIN \
+            --device=/dev/loop-control:/dev/loop-control \
+            --device=/dev/loop0:/dev/loop0 \
+            --device=/dev/loop1:/dev/loop1 \
+            --device=/dev/loop2:/dev/loop2 \
+            --device=/dev/loop3:/dev/loop3 \
+            -v "${{ github.workspace }}:/work" \
+            -w /work \
+            ubuntu:22.04 bash -c "
+              apt-get update -qq && \
+              apt-get install -y -qq archiso && \
+              mkdir -p out && \
+              mkarchiso -v -w out/work -o out Profile/
+            "
 
       - name: Find ISO
         id: iso
         run: |
-          ISO_FILE=$(ls -t out/arch-cyclone-*.iso 2>/dev/null | head -1)
+          ISO_FILE=$(ls -t out/*.iso 2>/dev/null | head -1)
           echo "iso_path=$ISO_FILE" >> "$GITHUB_OUTPUT"
           echo "iso_name=$(basename $ISO_FILE)" >> "$GITHUB_OUTPUT"
 
@@ -43,18 +51,3 @@ jobs:
           path: ${{ steps.iso.outputs.iso_path }}
           retention-days: 14
           compression-level: 0
-
-      - name: Create Release
-        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
-        uses: softprops/action-gh-release@v2
-        with:
-          files: ${{ steps.iso.outputs.iso_path }}
-          draft: false
-          prerelease: false
-          tag: v$(date +%Y.%m.%d)
-          name: Arch-Cyclone $(date +%Y.%m.%d)
-          body: |
-            ## Arch-Cyclone ISO
-            Built from commit `${{ github.sha }}`
-        env:
-          GITHUB_TOKEN: *** secrets.GITHUB_TOKEN }}
