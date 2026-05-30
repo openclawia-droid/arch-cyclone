@@ -1,0 +1,59 @@
+name: Build Arch-Cyclone ISO
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+
+permissions:
+  contents: write
+  attestations: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    container: archlinux/archlinux:latest
+
+    steps:
+      - name: Checkout profile
+        uses: actions/checkout@v4
+
+      - name: Install build dependencies
+        run: |
+          pacman -Sy --noconfirm archiso mkarchiso
+
+      - name: Build ISO
+        run: |
+          mkdir -p out
+          mkarchiso -v -w out/work -o out Profile/
+
+      - name: Find ISO
+        id: iso
+        run: |
+          ISO_FILE=$(ls -t out/arch-cyclone-*.iso 2>/dev/null | head -1)
+          echo "iso_path=$ISO_FILE" >> "$GITHUB_OUTPUT"
+          echo "iso_name=$(basename $ISO_FILE)" >> "$GITHUB_OUTPUT"
+
+      - name: Upload ISO artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: arch-cyclone-iso
+          path: ${{ steps.iso.outputs.iso_path }}
+          retention-days: 14
+          compression-level: 0
+
+      - name: Create Release
+        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+        uses: softprops/action-gh-release@v2
+        with:
+          files: ${{ steps.iso.outputs.iso_path }}
+          draft: false
+          prerelease: false
+          tag: v$(date +%Y.%m.%d)
+          name: Arch-Cyclone $(date +%Y.%m.%d)
+          body: |
+            ## Arch-Cyclone ISO
+            Built from commit `${{ github.sha }}`
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
